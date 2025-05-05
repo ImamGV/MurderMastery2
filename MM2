@@ -1,1 +1,56 @@
+local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
 
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local Options = Library.Options
+local Toggles = Library.Toggles
+Library.ShowToggleFrameInKeybinds = true 
+Library.ShowCustomCursor = true
+Library.NotifySide = "Right"
+
+local Window = Library:CreateWindow({
+	Title = 'YOUHUB | Murder Mastery 2 | Alpha v.0.0.1 ',
+	Center = true,
+	AutoShow = true,
+	Resizable = true,
+	ShowCustomCursor = true,
+	NotifySide = "Right",
+	TabPadding = 8,
+	MenuFadeTime = 0
+})
+
+function Murderer()
+for _, v in game:GetService("Players"):GetChildren() do
+if v.Backpack:FindFirstChild("Knife") or v.Character and v.Character:FindFirstChild("Knife") then return v.Character end
+end
+return nil
+end
+function Sheriff()
+for _, v in game:GetService("Players"):GetChildren() do
+if v.Backpack:FindFirstChild("Gun") or v.Character and v.Character:FindFirstChild("Gun") then return v.Character end
+end
+return nil
+end
+
+local Tabs = {
+	Main = Window:AddTab('Combat')
+}
+local Main = Tabs.Main:AddLeftGroupbox("Main")
+Main:AddButton("Find Sheriff", function()
+local Players = game:GetService("Players"):GetChildren()
+table.remove(Players, 1)
+for i, v in Players do
+if v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then
+Library:Notify("Sherrif is:\n" .. v.DisplayName .. "!")
+end
+end
+end):AddButton("Find Murder", function()
+local Players = game:GetService("Players"):GetChildren()
+table.remove(Players, 1)
+for i, v in Players do
+if v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
+Library:Notify("Murder is:\n" .. v.DisplayName .. "!")
+end
+end
+end)
