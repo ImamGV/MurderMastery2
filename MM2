@@ -112,11 +112,16 @@ local args = {
 game.Players.LocalPlyer.Character.Knife:WaitForChild("Stab"):FireServer(unpack(args))
 task.wait(.25)
 end
+end
 end):AddButton("Kill Sheriff", function()
 for i, v in game:GetService("Players"):GetChildren() do
 if game.Players.LocalPlyer.Backpack:FindFirstChild("Knife") then game.Players.LocalPlyer.Backpack.Knife.Parent = game.Players.LocalPlyer.Character end
 if v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then
 game.Players.LocalPlyer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+local args = {
+[1] = "Slash"
+}
+game.Players.LocalPlyer.Character.Knife:WaitForChild("Stab"):FireServer(unpack(args))
 end
 end
 end
